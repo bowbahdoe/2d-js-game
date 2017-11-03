@@ -1,18 +1,13 @@
 {
   "dependencies": {
+    "key-js": "^0.1.0"
+  },
+  "devDependencies": {
     "awesome-typescript-loader": "^3.3.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.4.0",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.7",
-    "normalize.css": "^7.0.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "style-loader": "^0.18.2",
-    "webpack": "^2.4.1"
-  },
-  "devDependencies": {
+    "webpack": "^2.4.1",
     "typescript": "^2.6.1"
   }
 }
