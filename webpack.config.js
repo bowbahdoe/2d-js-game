@@ -7,9 +7,13 @@ const PUBLIC = resolve(__dirname, 'public/')
 
 module.exports = {
   entry: resolve(SRC, 'index.ts'),
+  devtool: 'source-map',
   output: {
     path: PUBLIC,
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
     new TsConfigPathsPlugin({
@@ -24,6 +28,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: 'babel-loader'
       }
     ]

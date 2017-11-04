@@ -36,7 +36,6 @@ export class GameController {
     }
     if(KeyJS.isDown(KeyJS.LEFT)) {
       move = move.add(new Vector2D(-1, 0))
-          this.state.spawnBullet(new Vector2D(Math.random() * this.view.width, Math.random() * this.view.height), 5, 5, 5)
     }
 
     this.state.movePlayer(move.normalize().mult(move_by), this.view.width, this.view.height)

@@ -16,7 +16,6 @@ function renderEntity(ctx: CanvasRenderingContext2D, entity: Entity) {
   ctx.fillStyle =  old_fill_color
 }
 
-
 /**
  * Renders the list of bullets
  */
