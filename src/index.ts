@@ -2,7 +2,7 @@
  * starting point for execution of the game
  */
 import { GameView } from './view'
-import { GameState, PlayerShip, Vector2D } from './models'
+import { GameState, PlayerShip, Vector2D } from './model'
 import { GameController } from './controller'
 
 function startGame(canvas) {

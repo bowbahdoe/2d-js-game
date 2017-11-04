@@ -1,4 +1,4 @@
-import { GameState, Vector2D } from './models'
+import { GameState, Vector2D } from './model'
 import { GameView } from './view'
 import * as KeyJS from 'key-js'
 

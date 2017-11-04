@@ -1,4 +1,4 @@
-import { Vector2D } from './models'
+import { Vector2D } from './model'
 import { maxBy } from 'lodash'
 
 export interface IHitbox {

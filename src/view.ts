@@ -1,4 +1,4 @@
-import { GameState, Entity, Bullet } from './models'
+import { GameState, Entity, Bullet } from './model'
 
 
 /**
