@@ -6,7 +6,7 @@ export class GameState {
   bullets: Array<Bullet>
 
   constructor(player?: PlayerShip, bullets?: Array<Bullet>) {
-    this.player = player || new PlayerShip(new Vector2D(0, 0))
+    this.player = player || new PlayerShip(new Vector2D(0, 0), 1, 1, 100)
     this.bullets = bullets || []
   }
 

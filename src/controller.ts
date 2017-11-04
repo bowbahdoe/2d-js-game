@@ -22,6 +22,9 @@ export class GameController {
     clearInterval(this.interval)
   }
 
+  /**
+   * Handles player input
+   */
   handleKeyPress() {
     let move_by = 5
     let move = new Vector2D(0, 0)
@@ -41,8 +44,24 @@ export class GameController {
     this.state.movePlayer(move.normalize().mult(move_by), this.view.width, this.view.height)
   }
 
+
+  /**
+   * Handles Collisions between entities
+   * TODO: Replace with less naive and more general SpacialHash
+   */
+  handleCollisions() {
+    let player = this.state.player
+    for(let bullet of this.state.bullets) {
+      if(bullet.isColliding(player)) {
+        bullet.onCollide(player)
+        player.onCollide(bullet)
+      }
+    }
+  }
+
   tick() {
     this.handleKeyPress()
+    this.handleCollisions()
     this.view.render(this.state)
   }
 }

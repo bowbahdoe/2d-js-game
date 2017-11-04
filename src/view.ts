@@ -1,10 +1,10 @@
-import { GameState, Entity, Bullet } from './model'
+import { GameState, AEntity, Bullet } from './model'
 
 
 /**
  * Renders the given entity using the given rendering context
  */
-function renderEntity(ctx: CanvasRenderingContext2D, entity: Entity) {
+function renderEntity(ctx: CanvasRenderingContext2D, entity: AEntity) {
   let old_fill_color = ctx.fillStyle
   ctx.fillStyle = entity.color
   ctx.fillRect(
@@ -31,7 +31,16 @@ function renderBullets(ctx, bullets: Array<Bullet>) {
  * background of the game
  */
 function renderBackgound(ctx: CanvasRenderingContext2D, width, height) {
+  let old_stroke_style = ctx.strokeStyle
+  let old_line_width = ctx.lineWidth
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle="#111111";
   ctx.clearRect(0, 0, width, height)
+  ctx.strokeRect(0, 0, width, height);
+
+  ctx.strokeStyle = old_stroke_style
+  ctx.lineWidth = old_line_width
 }
 
 export class GameView {

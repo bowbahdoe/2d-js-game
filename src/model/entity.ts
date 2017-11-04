@@ -1,6 +1,7 @@
 import { Vector2D } from './vector2d'
+import { IHitbox, ICollidable, isColliding } from './collisions'
 
-export class Entity {
+export abstract class AEntity implements ICollidable {
   position: Vector2D
   visible: boolean
   width: number
@@ -19,20 +20,27 @@ export class Entity {
     this.position = this.position.add(amount)
   }
 
-  isColliding(other: Entity) {
-    return this.position.x < other.position.x + other.width &&
-      this.position.x + this.width > other.position.x &&
-      this.position.y < other.position.y + other.height &&
-      this.position.y + this.height > other.position.y
+  isColliding(other: AEntity) {
+    return isColliding(this.hitbox, other.hitbox)
   }
+
+  get hitbox(): IHitbox {
+    return {
+      location: this.position,
+      width: this.width,
+      height: this.height
+    }
+  }
+
+  abstract onCollide(other: ICollidable)
 }
 
-export class PlayerShip extends Entity {
+export class PlayerShip extends AEntity {
   health: number
   private maxHealth: number
 
-  constructor(position: Vector2D, width: number = 15, height: number = 15, maxHealth: number = 100) {
-    super(position, width, height, 'blue')
+  constructor(position: Vector2D, width, height, maxHealth) {
+    super(position, width, height, '#0074D9')
     this.health = maxHealth
     this.maxHealth = maxHealth
   }
@@ -59,12 +67,20 @@ export class PlayerShip extends Entity {
       this.health = this.maxHealth
     }
   }
+
+  onCollide(other: ICollidable) {
+
+  }
 }
 
-export class Bullet extends Entity {
+export class Bullet extends AEntity {
   velocity: Vector2D
   constructor(position: Vector2D, width: number, height: number, velocity: Vector2D) {
-    super(position, width, height, "#FF0000")
+    super(position, width, height, "#FF4136")
     this.velocity = velocity
+  }
+
+  onCollide(other: ICollidable) {
+
   }
 }
