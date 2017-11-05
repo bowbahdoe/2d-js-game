@@ -3,7 +3,6 @@ import { IHitbox, ICollidable, isColliding } from './collisions'
 
 export abstract class AEntity implements ICollidable {
   position: Vector2D
-  visible: boolean
   width: number
   height: number
   color: string
@@ -12,7 +11,6 @@ export abstract class AEntity implements ICollidable {
     this.position = position
     this.width = width
     this.height = height
-    this.visible = true
     this.color = color
   }
 
@@ -26,13 +24,15 @@ export abstract class AEntity implements ICollidable {
 
   get hitbox(): IHitbox {
     return {
-      location: this.position,
+      location: this.position.sub(new Vector2D(this.width/2, this.height/2)),
       width: this.width,
       height: this.height
     }
   }
 
   abstract onCollide(other: ICollidable)
+
+  abstract update(dt: number)
 }
 
 export class PlayerShip extends AEntity {
@@ -71,6 +71,10 @@ export class PlayerShip extends AEntity {
   onCollide(other: ICollidable) {
 
   }
+
+  update(dt: number) {
+
+  }
 }
 
 export class Bullet extends AEntity {
@@ -81,6 +85,10 @@ export class Bullet extends AEntity {
   }
 
   onCollide(other: ICollidable) {
+    this.velocity = this.velocity.mult(-3)
+  }
 
+  update(dt: number) {
+    this.move(this.velocity.mult(dt))
   }
 }

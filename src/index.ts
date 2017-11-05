@@ -11,8 +11,8 @@ function startGame(canvas) {
   let controller = new GameController(state, view)
 }
 
-export function run() {
-  let mount = document.getElementById('mount')
+export function run(mount_id: string) {
+  let mount = document.getElementById(mount_id)
   if (mount === null) {
     throw new Error('cannot find mount')
   }
@@ -23,4 +23,4 @@ export function run() {
   }
 }
 
-run()
+run('mount')

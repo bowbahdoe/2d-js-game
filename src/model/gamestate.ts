@@ -1,4 +1,6 @@
-import { PlayerShip, Bullet } from './entity'
+import { remove, partial, negate } from 'lodash'
+
+import { AEntity, PlayerShip, Bullet } from './entity'
 import { Vector2D } from './vector2d'
 
 export class GameState {
@@ -10,8 +12,13 @@ export class GameState {
     this.bullets = bullets || []
   }
 
-  spawnBullet(location: Vector2D, speed: number, width: number = 1, height: number = 1) {
-    let direction = location.sub(this.player.position).normalize()
+
+  /**
+   * Spawns a bullet at the given location with the given speed. The bullet
+   * will spawn with a velocity of magnitude speed towards the player
+   */
+  spawnBullet(location: Vector2D, speed: number = 0, width: number = 1, height: number = 1) {
+    let direction = this.player.position.sub(location).normalize()
     let velocity = direction.mult(speed)
     this.bullets.push(new Bullet(location, width, height, velocity))
   }
@@ -32,4 +39,32 @@ export class GameState {
     }
     this.player.move(amount)
   }
+
+  updateEntities(dt: number) {
+    for(let bullet of this.bullets) {
+      bullet.update(dt)
+    }
+    this.player.update(dt)
+  }
+
+
+  /**
+   * Removes any bullets that are off screen from the lsit of bullets
+   */
+  removeOutOfBounds(width: number, height: number) {
+    remove(this.bullets,
+           negate(partial(isOutOfBounds, partial.placeholder, width, height)))
+  }
+}
+
+
+
+/**
+ * Given the width and height of the screen, returns if the given entity is
+ * off screen
+ */
+function isOutOfBounds(entity: AEntity, width: number, height: number) {
+  let { width: w, height: h } = entity
+  let { x, y } = entity.position
+  return x + w > 0 && y + h > 0 && x - w < width && y - h < height
 }
